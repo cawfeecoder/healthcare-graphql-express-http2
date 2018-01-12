@@ -4,6 +4,7 @@ import {
   GraphQLObjectType,
   GraphQLNonNull,
 } from 'graphql';
+import { UserType } from '../types/userType'
 import { ProviderType } from '../types/providerType'
 import axios from 'axios';
 
@@ -17,6 +18,16 @@ const HealthCareQueryType = new GraphQLObjectType({
       resolve: function() {
         return axios
           .get("http://localhost:9999/providers")
+            .then(response => response.data)
+            .catch(err => console.log(err))
+      }
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      description: "List of all users",
+      resolve: function() {
+        return axios
+          .get("http://localhost:9999/users")
             .then(response => response.data)
             .catch(err => console.log(err))
       }
