@@ -28,7 +28,7 @@ const HealthCareQueryType = new GraphQLObjectType({
       resolve: function() {
         return axios
           .get("http://localhost:9999/users")
-            .then(response => response.data)
+            .then(response => response.data.slice(0, 99))
             .catch(err => console.log(err))
       }
     }
